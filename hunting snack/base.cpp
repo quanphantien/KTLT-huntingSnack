@@ -15,7 +15,9 @@ int SPEED;
 int HEIGH_CONSOLE, WIDTH_CONSOLE;
 int FOOD_INDEX;
 int SIZE_SNAKE;
-int STATE; 
+int STATE;
+
+const char* snake_string = "22120385";
 
 using namespace std;
 void FixConsoleWindow() {
@@ -111,12 +113,14 @@ void Eat() {
 }
 // Function to draw
 void DrawSnakeAndFood(const char* str) {
-    GotoXY(food[FOOD_INDEX].x, food[FOOD_INDEX].y);
-    printf(str);
+    int index = 0;
     for (int i = 0; i < SIZE_SNAKE; i++) {
         GotoXY(snake[i].x, snake[i].y);
-        printf(str);
+        cout << str[index++];
+        if (index >= strlen(str)) index = 0;
     }
+    GotoXY(food[FOOD_INDEX].x, food[FOOD_INDEX].y);
+    cout << str[index++];
 }
 // Function to process the dead of snake
 void ProcessDead() {
@@ -125,7 +129,7 @@ void ProcessDead() {
     printf("Dead, type y to continue or anykey to exit");
 }
 void MoveRight() {
-    if (snake[SIZE_SNAKE - 1].x + 1 == WIDTH_CONSOLE) {
+    if (snake[SIZE_SNAKE - 1].x + 1 >= WIDTH_CONSOLE) {
         ProcessDead();
     }
     else {
@@ -141,7 +145,7 @@ void MoveRight() {
 }
 
 void MoveLeft() {
-    if (snake[SIZE_SNAKE - 1].x - 1 == 0) {
+    if (snake[SIZE_SNAKE - 1].x - 1 <= 0) {
         ProcessDead();
     }
     else {
@@ -157,7 +161,7 @@ void MoveLeft() {
 }
 
 void MoveDown() {
-    if (snake[SIZE_SNAKE - 1].y + 1 == HEIGH_CONSOLE) {
+    if (snake[SIZE_SNAKE - 1].y + 1 >= HEIGH_CONSOLE) {
         ProcessDead();
     }
     else {
@@ -173,7 +177,7 @@ void MoveDown() {
 }
 
 void MoveUp() {
-    if (snake[SIZE_SNAKE - 1].y - 1 == 0) {
+    if (snake[SIZE_SNAKE - 1].y - 1 <= 0) {
         ProcessDead();
     }
     else {
@@ -209,7 +213,7 @@ void ThreadFunc() {
                 break;
             }
             strcpy(str, "0");
-            DrawSnakeAndFood(str);
+            DrawSnakeAndFood(snake_string);
             Sleep(200 / SPEED); // Sleep function with SPEED variable
         }
     }
