@@ -642,6 +642,15 @@ void MoveUp() {
 
 
 
+// Check if snake's head collides with its body
+void ProcessCollision() {
+    for (int i = 0; i < SIZE_SNAKE - 1; i++) {
+        if (snake[SIZE_SNAKE - 1].x == snake[i].x
+            && snake[SIZE_SNAKE - 1].y == snake[i].y)
+            ProcessDead();
+    }
+}
+
 // Subfunction for thread
 void ThreadFunc() {
     char str[256];
@@ -666,6 +675,7 @@ void ThreadFunc() {
             strcpy(str, "0");
             DrawSnakeAndFood(snake_string);
             Sleep(200 / SPEED); // Sleep function with SPEED variable
+            ProcessCollision();
         }
     }
 }
