@@ -3,9 +3,13 @@
 #include <string.h>
 #include <thread>
 #include <conio.h>
-#include<fstream>
+#include <fstream>
 #include <string>
+#include <vector>
 #pragma once
+
+using namespace std;
+
 #define MAX_SIZE_SNAKE 10
 #define MAX_SIZE_FOOD 4
 #define MAX_SPEED 3

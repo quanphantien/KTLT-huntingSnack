@@ -1,9 +1,12 @@
 #define _CRT_NONSTDC_NO_WARNINGS
 #define _CRT_SECURE_NO_WARNINGS
+
 #include <iostream>
 #include "base.h"
 #include "menu.h"
+
 using namespace std;
+
 void Newgame()
 {
 
@@ -54,6 +57,7 @@ void Newgame()
         }
     }
 }
+
 void displayMenu(int currentSelection) {
     system("cls"); // Clear the console screen (works on Windows)
    /* std::cout << "1. Categories" << std::endl;
@@ -88,6 +92,7 @@ void displayMenu(int currentSelection) {
         std::cout << std::endl;
     }
 }
+
 void mainMenu()
 {
     int currentSelection = 1;
@@ -133,6 +138,7 @@ void mainMenu()
         }
     }
 }
+
 void displayBackMenu()
 {
         cout << "-> ";
@@ -141,4 +147,3 @@ void displayBackMenu()
         if (input == 13)
             mainMenu();
 }
-
