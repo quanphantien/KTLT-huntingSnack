@@ -1,4 +1,4 @@
-#define _CRT_NONSTDC_NO_WARNINGS
+﻿#define _CRT_NONSTDC_NO_WARNINGS
 #define _CRT_SECURE_NO_WARNINGS
 #include "base.h"
 #include <Windows.h>
@@ -6,6 +6,7 @@
 #include <string.h>
 #include <thread>
 #include <conio.h>
+#include<string>
 
 POINT snake[10]; //snake
 POINT food[4]; // food
@@ -191,6 +192,35 @@ void MoveUp() {
         snake[SIZE_SNAKE - 1].y--;
     }
 }
+
+void savePlayerData(const string& filename, const Player& player) {
+    ofstream file(filename, ios::app); 
+    if (file.is_open()) {
+        file  << player.score << endl;
+        cout << "Thông tin của người chơi đã được lưu vào file " << filename << endl;
+        file.close();
+    }
+    else {
+        cout << "Không thể mở file " << filename << " để lưu dữ liệu." << endl;
+    }
+}
+
+void loadPlayerData(const string& filename) {
+    ifstream file(filename);
+    if (file.is_open()) {
+        int playerScore;
+        while (file >> playerScore) {
+            cout <<" Điểm số : " << playerScore << endl;
+        }
+        file.close();
+    }
+    else {
+        cout << "Không thể mở file " << filename << " để tải dữ liệu." << endl;
+    }
+}
+
+
+
 // Subfunction for thread
 void ThreadFunc() {
     char str[256];

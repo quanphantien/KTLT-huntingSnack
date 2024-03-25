@@ -1,8 +1,79 @@
 ﻿  base.cpp
-D:\A. Documents\GitHub\KTLT-huntingSnack\hunting snack\base.cpp(46,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\base.h(44,33): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+  (compiling source file 'base.cpp')
+  
+C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\base.h(44,33): error C2143: syntax error: missing ',' before '&'
+  (compiling source file 'base.cpp')
+  
+C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\base.h(45,33): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+  (compiling source file 'base.cpp')
+  
+C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\base.h(45,33): error C2143: syntax error: missing ',' before '&'
+  (compiling source file 'base.cpp')
+  
+C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\base.cpp(47,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\base.cpp(200,17): warning C4566: character represented by universal-character-name '\u1EE7' cannot be represented in the current code page (1252)
+C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\base.cpp(200,17): warning C4566: character represented by universal-character-name '\u01B0' cannot be represented in the current code page (1252)
+C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\base.cpp(200,17): warning C4566: character represented by universal-character-name '\u1EDD' cannot be represented in the current code page (1252)
+C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\base.cpp(200,17): warning C4566: character represented by universal-character-name '\u01A1' cannot be represented in the current code page (1252)
+C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\base.cpp(200,17): warning C4566: character represented by universal-character-name '\u0111' cannot be represented in the current code page (1252)
+C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\base.cpp(200,17): warning C4566: character represented by universal-character-name '\u1EE3' cannot be represented in the current code page (1252)
+C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\base.cpp(204,17): warning C4566: character represented by universal-character-name '\u1EC3' cannot be represented in the current code page (1252)
+C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\base.cpp(204,17): warning C4566: character represented by universal-character-name '\u1EDF' cannot be represented in the current code page (1252)
+C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\base.cpp(204,58): warning C4566: character represented by universal-character-name '\u0111' cannot be represented in the current code page (1252)
+C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\base.cpp(204,58): warning C4566: character represented by universal-character-name '\u1EC3' cannot be represented in the current code page (1252)
+C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\base.cpp(204,58): warning C4566: character represented by universal-character-name '\u01B0' cannot be represented in the current code page (1252)
+C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\base.cpp(204,58): warning C4566: character represented by universal-character-name '\u1EEF' cannot be represented in the current code page (1252)
+C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\base.cpp(204,58): warning C4566: character represented by universal-character-name '\u1EC7' cannot be represented in the current code page (1252)
+C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\base.cpp(213,20): warning C4566: character represented by universal-character-name '\u0110' cannot be represented in the current code page (1252)
+C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\base.cpp(213,20): warning C4566: character represented by universal-character-name '\u1EC3' cannot be represented in the current code page (1252)
+C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\base.cpp(213,20): warning C4566: character represented by universal-character-name '\u1ED1' cannot be represented in the current code page (1252)
+C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\base.cpp(218,17): warning C4566: character represented by universal-character-name '\u1EC3' cannot be represented in the current code page (1252)
+C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\base.cpp(218,17): warning C4566: character represented by universal-character-name '\u1EDF' cannot be represented in the current code page (1252)
+C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\base.cpp(218,58): warning C4566: character represented by universal-character-name '\u0111' cannot be represented in the current code page (1252)
+C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\base.cpp(218,58): warning C4566: character represented by universal-character-name '\u1EC3' cannot be represented in the current code page (1252)
+C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\base.cpp(218,58): warning C4566: character represented by universal-character-name '\u1EA3' cannot be represented in the current code page (1252)
+C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\base.cpp(218,58): warning C4566: character represented by universal-character-name '\u1EEF' cannot be represented in the current code page (1252)
+C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\base.cpp(218,58): warning C4566: character represented by universal-character-name '\u1EC7' cannot be represented in the current code page (1252)
   menu.cpp
+C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\base.h(44,33): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+  (compiling source file 'menu.cpp')
+  
+C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\base.h(44,33): error C2143: syntax error: missing ',' before '&'
+  (compiling source file 'menu.cpp')
+  
+C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\base.h(45,33): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+  (compiling source file 'menu.cpp')
+  
+C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\base.h(45,33): error C2143: syntax error: missing ',' before '&'
+  (compiling source file 'menu.cpp')
+  
+C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\menu.cpp(26,17): error C2664: 'void loadPlayerData(const int)': cannot convert argument 1 from 'std::string' to 'const int'
+  C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\menu.cpp(26,32):
+  No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+  C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\base.h(45,6):
+  see declaration of 'loadPlayerData'
+  C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\menu.cpp(26,17):
+  while trying to match the argument list '(std::string)'
+  
+C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\menu.cpp(31,17): error C2660: 'savePlayerData': function does not take 2 arguments
+  C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\base.h(44,6):
+  see declaration of 'savePlayerData'
+  C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\menu.cpp(31,17):
+  while trying to match the argument list '(std::string, Player)'
+  
   Source.cpp
-D:\A. Documents\GitHub\KTLT-huntingSnack\hunting snack\Source.cpp(13,13): warning C4326: return type of 'main' should be 'int' instead of 'void'
+C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\base.h(44,33): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+  (compiling source file 'Source.cpp')
+  
+C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\base.h(44,33): error C2143: syntax error: missing ',' before '&'
+  (compiling source file 'Source.cpp')
+  
+C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\base.h(45,33): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+  (compiling source file 'Source.cpp')
+  
+C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\base.h(45,33): error C2143: syntax error: missing ',' before '&'
+  (compiling source file 'Source.cpp')
+  
+C:\Users\Asus\source\repos\KTLT-huntingSnack-1\hunting snack\Source.cpp(13,13): warning C4326: return type of 'main' should be 'int' instead of 'void'
   Generating Code...
-  LINK : D:\A. Documents\GitHub\KTLT-huntingSnack\x64\Debug\hunting snack.exe not found or not built by the last incremental link; performing full link
-  hunting snack.vcxproj -> D:\A. Documents\GitHub\KTLT-huntingSnack\x64\Debug\hunting snack.exe

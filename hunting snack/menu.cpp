@@ -6,6 +6,8 @@
 using namespace std;
 void Newgame()
 {
+
+    Player a;
     int temp;
     FixConsoleWindow();
     StartGame();
@@ -16,6 +18,17 @@ void Newgame()
         if (STATE == 1) {
             if (temp == 'P') {
                 PauseGame(handle_t1);
+            }
+            else if (temp == 'L')
+            {
+                string filename;
+                cin >> filename;
+                loadPlayerData(filename);
+            }
+            else if (temp == 'T') {
+                string filename;
+                cin >> filename;
+                savePlayerData(filename, a);
             }
             else if (temp == 27) {
                 ExitGame(handle_t1);
@@ -92,7 +105,7 @@ void mainMenu()
             case 2:
                 std::cout << "LOAD GAME....(COMING SOON)" << std::endl;
                 displayBackMenu();
-                //Xử lý load game
+                
                 break;
             case 3:
                 std::cout << "SETTING MUSIC...(COMING SOON)" << std::endl;

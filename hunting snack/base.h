@@ -3,10 +3,16 @@
 #include <string.h>
 #include <thread>
 #include <conio.h>
+#include<fstream>
+#include <string>
 #pragma once
 #define MAX_SIZE_SNAKE 10
 #define MAX_SIZE_FOOD 4
 #define MAX_SPEED 3
+
+struct Player {
+	int score;
+};
 
 extern POINT snake[10]; //snake
 extern POINT food[4]; // food
@@ -35,3 +41,5 @@ void MoveLeft();
 void MoveDown();
 void MoveUp();
 void ThreadFunc();
+void savePlayerData(const string& filename, const Player& player);
+void loadPlayerData(const string& filename);
