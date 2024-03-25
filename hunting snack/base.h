@@ -34,4 +34,5 @@ void MoveRight();
 void MoveLeft();
 void MoveDown();
 void MoveUp();
+void ProcessCollision();
 void ThreadFunc();
