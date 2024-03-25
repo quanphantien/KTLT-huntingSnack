@@ -1,11 +1,16 @@
 #define _CRT_NONSTDC_NO_WARNINGS
 #define _CRT_SECURE_NO_WARNINGS
+
 #include <iostream>
 #include "base.h"
 #include "menu.h"
+
 using namespace std;
+
 void Newgame()
 {
+
+    Player a;
     int temp;
     FixConsoleWindow();
     StartGame();
@@ -16,6 +21,17 @@ void Newgame()
         if (STATE == 1) {
             if (temp == 'P') {
                 PauseGame(handle_t1);
+            }
+            else if (temp == 'L')
+            {
+                string filename;
+                cin >> filename;
+                loadPlayerData(filename);
+            }
+            else if (temp == 'T') {
+                string filename;
+                cin >> filename;
+                savePlayerData(filename, a);
             }
             else if (temp == 27) {
                 ExitGame(handle_t1);
@@ -41,6 +57,7 @@ void Newgame()
         }
     }
 }
+
 void displayMenu(int currentSelection) {
     system("cls"); // Clear the console screen (works on Windows)
    /* std::cout << "1. Categories" << std::endl;
@@ -75,6 +92,7 @@ void displayMenu(int currentSelection) {
         std::cout << std::endl;
     }
 }
+
 void mainMenu()
 {
     int currentSelection = 1;
@@ -92,7 +110,7 @@ void mainMenu()
             case 2:
                 std::cout << "LOAD GAME....(COMING SOON)" << std::endl;
                 displayBackMenu();
-                //Xử lý load game
+                
                 break;
             case 3:
                 std::cout << "SETTING MUSIC...(COMING SOON)" << std::endl;
@@ -120,6 +138,7 @@ void mainMenu()
         }
     }
 }
+
 void displayBackMenu()
 {
         cout << "-> ";
@@ -128,4 +147,3 @@ void displayBackMenu()
         if (input == 13)
             mainMenu();
 }
-

@@ -1,4 +1,4 @@
-#define _CRT_NONSTDC_NO_WARNINGS
+﻿#define _CRT_NONSTDC_NO_WARNINGS
 #define _CRT_SECURE_NO_WARNINGS
 #include "base.h"
 #include <Windows.h>
@@ -6,6 +6,7 @@
 #include <string.h>
 #include <thread>
 #include <conio.h>
+#include<string>
 
 POINT snake[10]; //snake
 POINT food[4]; // food
@@ -20,18 +21,21 @@ int STATE;
 const char* snake_string = "22120385";
 
 using namespace std;
+
 void FixConsoleWindow() {
     HWND consoleWindow = GetConsoleWindow();
     LONG style = GetWindowLong(consoleWindow, GWL_STYLE);
     style = style & ~(WS_MAXIMIZEBOX) & ~(WS_THICKFRAME);
     SetWindowLong(consoleWindow, GWL_STYLE, style);
 }
+
 void GotoXY(int x, int y) {
     COORD coord;
     coord.X = x;
     coord.Y = y;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
+
 bool IsValid(int x, int y) {
     for (int i = 0; i < SIZE_SNAKE; i++) {
         if (snake[i].x == x && snake[i].y == y) {
@@ -64,7 +68,6 @@ void ResetData() {
     GenerateFood(); // Create food array
 }
 
-
 void DrawBoard(int x, int y, int width, int height, int curPosX, int curPosY) {
     GotoXY(x, y); cout << 'X';
     for (int i = 1; i < width; i++) cout << 'X';
@@ -78,12 +81,14 @@ void DrawBoard(int x, int y, int width, int height, int curPosX, int curPosY) {
     }
     GotoXY(curPosX, curPosY);
 }
+
 void StartGame() {
     system("cls");
     ResetData(); // Intialize original data
     DrawBoard(0, 0, WIDTH_CONSOLE, HEIGH_CONSOLE); // Draw game
     STATE = 1;//Start running Thread
 }
+
 // Function exit game
 void ExitGame(HANDLE t) {
     system("cls");
@@ -94,6 +99,7 @@ void ExitGame(HANDLE t) {
 void PauseGame(HANDLE t) {
     SuspendThread(t);
 }
+
 // Function to update global data
 void Eat() {
     snake[SIZE_SNAKE] = food[FOOD_INDEX];
@@ -111,6 +117,7 @@ void Eat() {
         SIZE_SNAKE++;
     }
 }
+
 // Function to draw
 void DrawSnakeAndFood(const char* str) {
     int index = 0;
@@ -122,12 +129,14 @@ void DrawSnakeAndFood(const char* str) {
     GotoXY(food[FOOD_INDEX].x, food[FOOD_INDEX].y);
     cout << str[index++];
 }
+
 // Function to process the dead of snake
 void ProcessDead() {
     STATE = 0;
     GotoXY(0, HEIGH_CONSOLE + 2);
     printf("Dead, type y to continue or anykey to exit");
 }
+
 void MoveRight() {
     if (snake[SIZE_SNAKE - 1].x + 1 >= WIDTH_CONSOLE) {
         ProcessDead();
@@ -191,14 +200,33 @@ void MoveUp() {
         snake[SIZE_SNAKE - 1].y--;
     }
 }
-// Check if snake's head collides with its body
-void ProcessCollision() {
-    for (int i = 0; i < SIZE_SNAKE - 1; i++) {
-        if (snake[SIZE_SNAKE - 1].x == snake[i].x
-            && snake[SIZE_SNAKE - 1].y == snake[i].y)
-            ProcessDead();
+
+void savePlayerData(const string& filename, const Player& player) {
+    ofstream file(filename, ios::app); 
+    if (file.is_open()) {
+        file  << player.score << endl;
+        cout << "Thông tin của người chơi đã được lưu vào file " << filename << endl;
+        file.close();
+    }
+    else {
+        cout << "Không thể mở file " << filename << " để lưu dữ liệu." << endl;
     }
 }
+
+void loadPlayerData(const string& filename) {
+    ifstream file(filename);
+    if (file.is_open()) {
+        int playerScore;
+        while (file >> playerScore) {
+            cout <<" Điểm số : " << playerScore << endl;
+        }
+        file.close();
+    }
+    else {
+        cout << "Không thể mở file " << filename << " để tải dữ liệu." << endl;
+    }
+}
+
 // Subfunction for thread
 void ThreadFunc() {
     char str[256];
