@@ -11,6 +11,7 @@ using namespace std;
 
 // main function
 void main() {
+    cout << "Day la phan code tu project rieng";
     cout << "hello";
     mainMenu();
 }
