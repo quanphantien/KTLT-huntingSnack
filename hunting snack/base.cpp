@@ -8,16 +8,28 @@
 #include <conio.h>
 #include<string>
 
+
+HIGHLENGTH HighLength[5];
+HIGHLENGTH NewLength;
 POINT snake[10]; //snake
 POINT food[4]; // food
+POINT a;
+int INDEX_ID;
 int CHAR_LOCK;
 int MOVING;
 int SPEED;
 int HEIGH_CONSOLE, WIDTH_CONSOLE;
 int FOOD_INDEX;
 int SIZE_SNAKE;
+int SIZE_PLUS;
 int STATE;
-
+int ROUND;
+int win;
+bool GATE_EXIST;
+char highlength[] = "HIGH LENGTH";
+char yes[] = "Yes";
+char no[] = "No";
+char ok[] = "OK";
 const char* snake_string = "22120385";
 
 using namespace std;
@@ -137,6 +149,433 @@ void ProcessDead() {
     printf("Dead, type y to continue or anykey to exit");
 }
 
+bool IsExistedFileName(string FileName)
+{
+    ifstream f_user(".\\Data\\username.txt");
+    string tmp;
+
+    while (f_user >> tmp)
+        if (tmp == FileName)
+        {
+            f_user.close();
+            return true;
+        }
+    f_user.close();
+    return false;
+}
+
+bool IsValidFileName(string FileName)
+{
+    for (int i = 0; i < FileName.length(); i++)
+        if (FileName[i] == '>' || FileName[i] == '<' || FileName[i] == ':'
+            || FileName[i] == '"' || FileName[i] == '/' || FileName[i] == '\\'
+            || FileName[i] == '|' || FileName[i] == '?' || FileName[i] == '*')
+            return false;
+    return true;
+}
+
+void DeleteBox()
+{
+    int column = 30;
+    int row = 8;
+    int xgame = (WIDTH_CONSOLE / 2) - 15;
+    int ygame = (HEIGH_CONSOLE / 2) - 3;
+
+    for (int i = 0; i < row; i++)
+    {
+        GotoXY(xgame, ygame + i);
+        for (int j = 0; j < column; j++)
+        {
+            if (i == 0)
+                cout << " ";
+            else if (i == row - 1)
+                cout << " ";
+            else if (j == 0 || j == column - 1)
+                cout << " ";
+            else
+                cout << " ";
+        }
+    }
+}
+
+void SaveData()
+{
+    string FileName;
+
+    int column = 30;
+    int row = 8;
+    int xgame = (WIDTH_CONSOLE / 2) - 15;
+    int ygame = (HEIGH_CONSOLE / 2) - 3;
+
+    for (int i = 0; i < row; i++)
+    {
+        GotoXY(xgame, ygame + i);
+        for (int j = 0; j < column; j++)
+        {
+            if (i == 0)
+                cout << (unsigned char)220;
+            else if (i == row - 1)
+                cout << (unsigned char)223;
+            else if (j == 0 || j == column - 1)
+                cout << (unsigned char)219;
+            else
+                cout << " ";
+        }
+    }
+
+    GotoXY(xgame + 9, ygame + 2);
+    cout << "Save and Exit";
+    GotoXY(xgame + 14, ygame + 5);
+    TextColor(3, ok);
+    GotoXY(xgame + 3, ygame + 3);
+    cout << "Name: ";
+
+    do
+    {
+        GotoXY(xgame + 9, ygame + 3);
+        cin >> FileName;
+        GotoXY(xgame + 3, ygame + 4);
+        if (IsExistedFileName(FileName))
+            cout << "File existed, re-type!";
+        if (!IsValidFileName(FileName))
+            cout << "Invalid char, re-type!";
+        if (FileName.length() > 18)
+            cout << "Too long, re-type!";
+
+        if (IsExistedFileName(FileName) || !IsValidFileName(FileName) || FileName.length() > 18)
+        {
+            GotoXY(xgame + 9, ygame + 3);
+            for (int i = 0; i < 18; i++)
+                cout << " ";
+        }
+    } while (IsExistedFileName(FileName) || !IsValidFileName(FileName) || FileName.length() > 18);
+
+    DeleteBox();
+
+    ofstream fo(".\\Data\\" + FileName);
+
+    ofstream f_user;
+    f_user.open(".\\Data\\username.txt", ios::app);
+    f_user << FileName << endl;
+    f_user.close();
+
+    fo << SIZE_SNAKE << " " << SIZE_PLUS << endl;
+
+    for (int i = 0; i < SIZE_SNAKE; i++)
+        fo << snake[i].x << " " << snake[i].y << endl;
+
+    fo << FOOD_INDEX << endl;
+
+    fo << food[FOOD_INDEX].x << " " << food[FOOD_INDEX].y << endl;
+
+    if (GATE_EXIST)
+        fo << a.x << " " << a.y << endl;
+    else
+        fo << -1 << " " << -1 << endl;
+
+    fo << INDEX_ID << endl;
+
+    fo << SPEED << endl;
+
+    fo << ROUND << endl;
+
+    fo << MOVING << endl;
+
+    fo << CHAR_LOCK << endl;
+
+    fo << win;
+
+    fo.close();
+
+    NewLength.name = FileName;
+    NewLength.length = SIZE_SNAKE + SIZE_PLUS;
+
+    CreateNewHighLength();
+    SortHighLength();
+}
+
+void LoadData()
+{
+    string FileName;
+    int column = 30;
+    int row = 8;
+    int xgame = (WIDTH_CONSOLE / 2) - 15;
+    int ygame = (HEIGH_CONSOLE / 2) - 3;
+
+    for (int i = 0; i < row; i++)
+    {
+        GotoXY(xgame, ygame + i);
+        for (int j = 0; j < column; j++)
+        {
+            if (i == 0)
+                cout << (unsigned char)220;
+            else if (i == row - 1)
+                cout << (unsigned char)223;
+            else if (j == 0 || j == column - 1)
+                cout << (unsigned char)219;
+            else
+                cout << " ";
+        }
+    }
+
+    GotoXY(xgame + 11, ygame + 2);
+    cout << "Load data";
+    GotoXY(xgame + 14, ygame + 5);
+    TextColor(3, ok);
+    GotoXY(xgame + 3, ygame + 3);
+    cout << "Name: ";
+
+    do
+    {
+        GotoXY(xgame + 9, ygame + 3);
+        cin >> FileName;
+        if (!IsExistedFileName(FileName))
+        {
+            GotoXY(xgame + 3, ygame + 4);
+            cout << "Not existed user!";
+            GotoXY(xgame + 9, ygame + 3);
+            for (int i = 0; i < 18; i++)
+                cout << " ";
+        }
+    } while (!IsExistedFileName(FileName));
+
+    DeleteBox();
+
+    for (int i = 0; i < SIZE_SNAKE; i++)
+    {
+        GotoXY(snake[i].x, snake[i].y);
+        cout << " ";
+    }
+
+    ifstream fi(".\\Data\\" + FileName);
+
+    fi >> SIZE_SNAKE >> SIZE_PLUS;
+
+    GotoXY(8, HEIGH_CONSOLE);
+    cout << SIZE_SNAKE + SIZE_PLUS;
+
+    for (int i = 0; i < SIZE_SNAKE; i++)
+        fi >> snake[i].x >> snake[i].y;
+
+    GotoXY(food[FOOD_INDEX].x, food[FOOD_INDEX].y);
+
+    fi >> FOOD_INDEX;
+    cout << " ";
+    fi >> food[FOOD_INDEX].x >> food[FOOD_INDEX].y;
+
+    fi >> a.x >> a.y;
+    if (a.x != -1 && a.y != -1)
+    {
+        GotoXY(a.x + 1, a.y);
+        cout << (unsigned char)223;
+        GotoXY(a.x - 1, a.y - 1);
+        cout << (unsigned char)219;
+        GotoXY(a.x, a.y);
+        cout << (unsigned char)223;
+        GotoXY(a.x + 1, a.y - 1);
+        cout << (unsigned char)219;
+        GotoXY(a.x - 1, a.y);
+        cout << (unsigned char)223;
+        GATE_EXIST = true;
+    }
+
+    fi >> INDEX_ID;
+
+    fi >> SPEED;
+
+    fi >> ROUND;
+
+    fi >> MOVING;
+
+    fi >> CHAR_LOCK;
+
+    fi >> win;
+
+    fi.close();
+}
+bool IsEmptyHighLengthFile()
+{
+    ifstream fi;
+    string name;
+    int length;
+
+    fi.open(".\\Data\\highlength.txt");
+    if (fi >> name >> length)
+    {
+        fi.close();
+        return false;
+    }
+    fi.close();
+    return true;
+}
+
+void SaveHighLength()
+{
+    remove(".\\Data\\highlength.txt");
+
+    ofstream fo;
+    fo.open(".\\Data\\highlength.txt");
+
+    for (int i = 0; i < 4; i++)
+        fo << HighLength[i].name << " " << HighLength[i].length << endl;
+    fo << HighLength[4].name << " " << HighLength[4].length;
+
+    fo.close();
+}
+
+void ResetHighLength()
+{
+    for (int i = 0; i < 5; i++)
+    {
+        HighLength[i].name = "[NONE]";
+        HighLength[i].length = 4;
+    }
+    SaveHighLength();
+}
+
+void InitializeHighLength()
+{
+    if (!IsEmptyHighLengthFile())
+    {
+        string name;
+        int length;
+
+        ifstream fi;
+        fi.open(".\\Data\\highlength.txt");
+
+        int i = 0;
+
+        while (fi >> name >> length)
+        {
+            HighLength[i].name = name;
+            HighLength[i].length = length;
+            i++;
+        }
+
+        fi.close();
+    }
+    else
+        ResetHighLength();
+}
+
+
+void TextColor(int color, char* OutputContent)
+{
+    static int __BACKGROUND;
+
+    HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
+    CONSOLE_SCREEN_BUFFER_INFO csbiInfo;
+
+    GetConsoleScreenBufferInfo(h, &csbiInfo);
+
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color + (__BACKGROUND << 4));
+
+    cout << OutputContent;
+
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7 + (__BACKGROUND << 4));
+}
+
+void CreateNewHighLength()
+{
+    int minLength = HighLength[0].length;
+    int index = 0;
+    for (int i = 0; i < 5; i++)
+    {
+        if (HighLength[i].name == "[NONE]")
+        {
+            minLength = HighLength[i].length;
+            index = i;
+            break;
+        }
+        else if (HighLength[i].length < minLength)
+        {
+            minLength = HighLength[i].length;
+            index = i;
+        }
+    }
+
+    if (NewLength.length > minLength || (NewLength.length == 4 && HighLength[index].name == "[NONE]"))
+    {
+        HighLength[index].name = NewLength.name;
+        HighLength[index].length = NewLength.length;
+    }
+}
+
+void SortHighLength()
+{
+    for (int i = 0; i < 4; i++)
+        for (int j = i + 1; j < 5; j++)
+            if (HighLength[i].length < HighLength[j].length)
+            {
+                string name = HighLength[i].name;
+                HighLength[i].name = HighLength[j].name;
+                HighLength[j].name = name;
+
+                int length = HighLength[i].length;
+                HighLength[i].length = HighLength[j].length;
+                HighLength[j].length = length;
+            }
+    SaveHighLength();
+}
+
+void ShowHighLength()
+{
+    ifstream fi;
+    fi.open(".\\Data\\highlength.txt");
+
+    string name;
+    int length;
+
+    system("cls");
+
+    int column = 31;
+    int row = 9;
+    int xHighLength = (WIDTH_CONSOLE / 2) - 15;
+    int yHighLength = (HEIGH_CONSOLE / 2) - 4;
+
+    for (int j = 0; j < row; j++)
+    {
+        GotoXY(xHighLength, yHighLength + j);
+        for (int k = 0; k < column; k++)
+        {
+            if (j == 0)
+                cout << (unsigned char)220;
+            else if (j == 2 && k != 0 && k != column - 1)
+                cout << "*";
+            else if (j == row - 1)
+                cout << (unsigned char)223;
+            else if (k == 0 || k == column - 1)
+                cout << (unsigned char)219;
+            else
+                cout << " ";
+        }
+    }
+
+    while (true)
+    {
+        GotoXY(xHighLength + 10, yHighLength + 1);
+        cout << "HIGH LENGTH";
+
+        int i = 0;
+
+        while (fi >> name >> length)
+        {
+            GotoXY(xHighLength + 4, yHighLength + i + 3);
+            cout << "#" << i + 1 << ". ";
+            GotoXY(xHighLength + 8, yHighLength + i + 3);
+            cout << name;
+            GotoXY(xHighLength + 27, yHighLength + i + 3);
+            cout << length;
+            i++;
+        }
+
+        if (_kbhit())
+            break;
+    }
+    fi.close();
+}
+
+
 void MoveRight() {
     if (snake[SIZE_SNAKE - 1].x + 1 >= WIDTH_CONSOLE) {
         ProcessDead();
@@ -201,31 +640,7 @@ void MoveUp() {
     }
 }
 
-void savePlayerData(const string& filename, const Player& player) {
-    ofstream file(filename, ios::app); 
-    if (file.is_open()) {
-        file  << player.score << endl;
-        cout << "Thông tin của người chơi đã được lưu vào file " << filename << endl;
-        file.close();
-    }
-    else {
-        cout << "Không thể mở file " << filename << " để lưu dữ liệu." << endl;
-    }
-}
 
-void loadPlayerData(const string& filename) {
-    ifstream file(filename);
-    if (file.is_open()) {
-        int playerScore;
-        while (file >> playerScore) {
-            cout <<" Điểm số : " << playerScore << endl;
-        }
-        file.close();
-    }
-    else {
-        cout << "Không thể mở file " << filename << " để tải dữ liệu." << endl;
-    }
-}
 
 // Subfunction for thread
 void ThreadFunc() {

@@ -14,6 +14,11 @@ using namespace std;
 #define MAX_SIZE_FOOD 4
 #define MAX_SPEED 3
 
+struct HIGHLENGTH {
+	string name;
+	int length;
+};
+
 struct Player {
 	int score;
 };
@@ -40,10 +45,23 @@ void PauseGame(HANDLE t);
 void Eat();
 void DrawSnakeAndFood(const char* str);
 void ProcessDead();
+
+
+bool IsExistedFileName(string FileName);
+bool IsValidFileName(string FileName);
+void DeleteBox();
+void SaveData();
+void LoadData();
+bool IsEmptyHighLengthFile();
+void SaveHighLength();
+void ResetHighLength();
+void InitializeHighLength();
+void TextColor(int color, char* OutputContent);
+void CreateNewHighLength();
+void SortHighLength();
+void ShowHighLength();
 void MoveRight();
 void MoveLeft();
 void MoveDown();
 void MoveUp();
 void ThreadFunc();
-void savePlayerData(const string& filename, const Player& player);
-void loadPlayerData(const string& filename);

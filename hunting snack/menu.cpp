@@ -24,14 +24,15 @@ void Newgame()
             }
             else if (temp == 'L')
             {
-                string filename;
-                cin >> filename;
-                loadPlayerData(filename);
+                PauseGame(handle_t1);
+                SaveData();
+                ExitGame(handle_t1);
+              
             }
             else if (temp == 'T') {
-                string filename;
-                cin >> filename;
-                savePlayerData(filename, a);
+                PauseGame(handle_t1);
+                LoadData();
+                ResumeThread(handle_t1);
             }
             else if (temp == 27) {
                 ExitGame(handle_t1);
