@@ -7,11 +7,12 @@
 #include <thread>
 #include <conio.h>
 #include<string>
+#include <fstream>
 
 
 HIGHLENGTH HighLength[5];
 HIGHLENGTH NewLength;
-POINT snake[10]; //snake
+POINT snake[100]; //snake
 POINT food[4]; // food
 POINT a;
 int INDEX_ID;
@@ -106,11 +107,73 @@ void ExitGame(HANDLE t) {
     system("cls");
     TerminateThread(t, 0);
 }
+void CountDown() {
+    int x = 1;
+    int y = 1;
+    for (int i = 0; i < HEIGH_CONSOLE - 1; i++) {
+        GotoXY(x, y + i);
+        for (int j = 0; j < WIDTH_CONSOLE - 1; j++) {
+            cout << " ";
+        }
+    }
+    for (int i = 3; i > 0; i--) {
+        GotoXY(WIDTH_CONSOLE / 2, HEIGH_CONSOLE / 2);
+        cout << i;
+        this_thread::sleep_for(chrono::seconds(1));
+    }
+    GotoXY(WIDTH_CONSOLE / 2, HEIGH_CONSOLE / 2);
+    cout << "Go";
+    this_thread::sleep_for(chrono::milliseconds(500));
+    GotoXY(WIDTH_CONSOLE / 2, HEIGH_CONSOLE / 2);
+    cout << "  ";
+}
 
 // Function pause game
 void PauseGame(HANDLE t) {
     SuspendThread(t);
+    int column = 30;
+    int row = 8;
+    int xgame = (WIDTH_CONSOLE / 2) - 15;
+    int ygame = (HEIGH_CONSOLE / 2) - 3;
+
+    for (int i = 0; i < row; i++)
+    {
+        GotoXY(xgame, ygame + i);
+        for (int j = 0; j < column; j++)
+        {
+            if (i == 0)
+                cout << (unsigned char)220;
+            else if (i == row - 1)
+                cout << (unsigned char)223;
+            else if (j == 0 || j == column - 1)
+                cout << (unsigned char)219;
+            else
+                cout << " ";
+        }
+    }
+    GotoXY(xgame + 10, ygame + 2);
+    cout << "Pause Game";
+    GotoXY(xgame + 3, ygame + 4);
+    cout << "Continue";
+    GotoXY(xgame + 3, ygame + 5);
+    cout << "(Press C)";
+    GotoXY(xgame + 20, ygame + 4);
+    cout << "Save";
+    GotoXY(xgame + 17, ygame + 5);
+    cout << "(Press S)";
+    int temp2 = 0;
+    while (temp2 != 'C' && temp2 != 'S') {
+        temp2 = toupper(getch());
+    }
+    if (temp2 == 'C') {
+
+        CountDown();
+        ResumeThread(t);
+    }
+    else SaveData();
 }
+// Function pause game
+
 
 // Function to update global data
 void Eat() {

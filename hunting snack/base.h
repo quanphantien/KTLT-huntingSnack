@@ -1,18 +1,12 @@
 #include <Windows.h>
 #include <iostream>
-#include <string.h>
-#include <thread>
-#include <conio.h>
-#include <fstream>
-#include <string>
-#include <vector>
 #pragma once
 
 using namespace std;
 
-#define MAX_SIZE_SNAKE 10
+#define MAX_SIZE_SNAKE 100
 #define MAX_SIZE_FOOD 4
-#define MAX_SPEED 3
+#define MAX_SPEED 100
 
 struct HIGHLENGTH {
 	string name;
@@ -23,7 +17,7 @@ struct Player {
 	int score;
 };
 
-extern POINT snake[10]; //snake
+extern POINT snake[100]; //snake
 extern POINT food[4]; // food
 extern int CHAR_LOCK;
 extern int MOVING;

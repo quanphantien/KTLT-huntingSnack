@@ -2,6 +2,8 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
+#include <conio.h>
+#include <thread>
 #include "base.h"
 #include "menu.h"
 
@@ -131,10 +133,10 @@ void mainMenu()
             }
             break;
         }
-        else if (input == 'W' && currentSelection > 1) { // Arrow up key
+        else if (input == 'W' && currentSelection > 1) { 
             currentSelection--;
         }
-        else if (input == 'S' && currentSelection < 5) { // Arrow down key
+        else if (input == 'S' && currentSelection < 5) {
             currentSelection++;
         }
     }
