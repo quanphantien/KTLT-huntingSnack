@@ -7,6 +7,7 @@
 #include "base.h"
 #include "menu.h"
 #include "Console.h"
+#include <vector>
 
 using namespace std;
 
@@ -117,11 +118,23 @@ void mainMenu()
                 //...............
                 break;
             case 4:
-                std::cout << "HELP...(COMING SOON)" << std::endl;
-                //Thêm hướng dẫn chơi...
+            {
+                std::vector<std::string> instructions = {
+                "Instruction:",
+                "1. Use A S W D keys to move",
+                "2. Press 'P' to pause",
+                "3. Press 'Q' to exit",
+                "Press 'Enter' to return to menu"
+                    };
+                int boxWidth = 50;
+                int boxHeight = 10;
+                drawHelpBox(boxWidth, boxHeight, instructions);
+                cout << "\n";
 
                 displayBackMenu();
                 break;
+            }
+            
             case 5:
                 std::cout << "Exiting program..." << std::endl;
                 exit(0);

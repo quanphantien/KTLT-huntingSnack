@@ -17,6 +17,6 @@ void main() {
     DrawFrame({3,0},112,28);
 
     getch();
-    //mainMenu();
+    mainMenu();
 
 }

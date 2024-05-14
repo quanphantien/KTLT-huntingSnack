@@ -9,7 +9,7 @@
 #include<string>
 #include <fstream>
 #include "Console.h"
-
+#include <vector>
 
 HIGHLENGTH HighLength[5];
 HIGHLENGTH NewLength;
@@ -35,6 +35,41 @@ char ok[] = "OK";
 const char* snake_string = "22120385";
 
 using namespace std;
+
+void drawHelpBox(int width, int height, const std::vector<std::string>& instructions) {
+    // Xác định vị trí bắt đầu vẽ ô
+    WIDTH_CONSOLE = 70;
+    HEIGH_CONSOLE = 20;
+    int xgame = (WIDTH_CONSOLE / 2) - (width / 2);
+    int ygame = (HEIGH_CONSOLE / 2) - (height / 2);
+
+    // Vẽ cạnh trên
+    GotoXY(xgame, ygame);
+    std::cout << (unsigned char)201;
+    for (int i = 0; i < width - 2; ++i) std::cout << (unsigned char)205;
+    std::cout << (unsigned char)187;
+
+    // Vẽ các dòng giữa
+    for (int i = 0; i < height - 2; ++i) {
+        GotoXY(xgame, ygame + i + 1);
+        std::cout << (unsigned char)186;
+        if (i < instructions.size()) {
+            std::cout << " " << instructions[i];
+            int spaces = width - 3 - instructions[i].length();
+            for (int j = 0; j < spaces; ++j) std::cout << " ";
+        }
+        else {
+            for (int j = 0; j < width - 2; ++j) std::cout << " ";
+        }
+        std::cout << (unsigned char)186;
+    }
+
+    // Vẽ cạnh dưới
+    GotoXY(xgame, ygame + height - 1);
+    std::cout << (unsigned char)200;
+    for (int i = 0; i < width - 2; ++i) std::cout << (unsigned char)205;
+    std::cout << (unsigned char)188;
+}
 
 bool IsValid(int x, int y) {
     for (int i = 0; i < SIZE_SNAKE; i++) {
