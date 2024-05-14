@@ -27,8 +27,6 @@ extern int FOOD_INDEX;
 extern int SIZE_SNAKE;
 extern int STATE;
 
-void FixConsoleWindow();
-void GotoXY(int x, int y);
 bool IsValid(int x, int y);
 void GenerateFood();
 void ResetData();

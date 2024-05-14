@@ -6,6 +6,7 @@
 #include <thread>
 #include "base.h"
 #include "menu.h"
+#include "Console.h"
 
 using namespace std;
 
@@ -63,13 +64,7 @@ void Newgame()
 
 void displayMenu(int currentSelection) {
     system("cls"); // Clear the console screen (works on Windows)
-   /* std::cout << "1. Categories" << std::endl;
-    std::cout << "2. Products" << std::endl;
-    std::cout << "3. Orders" << std::endl;
-    std::cout << "4. Report" << std::endl;
-    std::cout << "5. Quit" << std::endl;*/
-
-    // Highlight the current selection
+    GotoXY(2, 3);
     for (int i = 1; i <= 5; ++i) {
         if (i == currentSelection) {
             std::cout << "-> ";
