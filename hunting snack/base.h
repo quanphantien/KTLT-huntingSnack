@@ -59,3 +59,4 @@ void MoveDown();
 void MoveUp();
 void ProcessCollision();
 void ThreadFunc();
+void Newgame();

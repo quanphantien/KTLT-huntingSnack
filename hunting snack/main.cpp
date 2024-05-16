@@ -6,17 +6,20 @@
 #include "Graphic.h"
 #include "conio.h"
 #include "Console.h"
+#include <vector>
 
 using namespace std; 
 
 // main function
 void main() {
-    system("color E0");
-    setConsoleSize(115, 30);
+    system("color F0");
+    vector<string> box1(6, "█");
+    setConsoleSize(100, 30);
+    FixConsoleWindow();
     ShowConsoleCursor(false);
-    DrawFrame({3,0},112,28);
-
-    getch();
+    DrawFrame({3,0},93,27);
+    DrawFrame({ 7,7 }, 15, 17);
+    DrawFrame({ 25,7 }, 66, 17);
     mainMenu();
 
 }

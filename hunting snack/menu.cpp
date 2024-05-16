@@ -11,85 +11,35 @@
 
 using namespace std;
 
-void Newgame()
+
+void displayMenu(int currentSelection) 
 {
 
-    Player a;
-    int temp;
-    FixConsoleWindow();
-    StartGame();
-    thread t1(ThreadFunc); // Create thread for snake
-    HANDLE handle_t1 = t1.native_handle(); // Take handle of thread
-    while (1) {
-        temp = toupper(getch());
-        if (STATE == 1) {
-            if (temp == 'P') {
-                PauseGame(handle_t1);
-            }
-            else if (temp == 'L')
+    //system("cls"); // Clear the console screen (works on Windows)
+    GotoXY(11, 9);
+    for (int i = 1; i <= 5; ++i)
+    {
+            switch (i)
             {
-                PauseGame(handle_t1);
-                SaveData();
-                ExitGame(handle_t1);
-              
+            case 1:
+                std::cout << "NEW GAME";
+                break;
+            case 2:
+                std::cout << "RESUME";
+                break;
+            case 3:
+                std::cout << "MUSIC";
+                break;
+            case 4:
+                std::cout << "HELP";
+                break;
+            case 5:
+                std::cout << "QUIT";
+                break;
             }
-            else if (temp == 'T') {
-                PauseGame(handle_t1);
-                LoadData();
-                ResumeThread(handle_t1);
-            }
-            else if (temp == 27) {
-                ExitGame(handle_t1);
-                return;
-            }
-            else {
-                ResumeThread(handle_t1);
-                if ((temp != CHAR_LOCK) && (temp == 'D' || temp == 'A' || temp == 'W' || temp == 'S')) {
-                    if (temp == 'D') CHAR_LOCK = 'A';
-                    else if (temp == 'W') CHAR_LOCK = 'S';
-                    else if (temp == 'S') CHAR_LOCK = 'W';
-                    else CHAR_LOCK = 'D';
-                    MOVING = temp;
-                }
-            }
-        }
-        else {
-            if (temp == 'Y') StartGame();
-            else {
-                ExitGame(handle_t1);
-                return;
-            }
-        }
+            GotoXY(11, 9 + i);
     }
-}
 
-void displayMenu(int currentSelection) {
-    system("cls"); // Clear the console screen (works on Windows)
-    GotoXY(2, 3);
-    for (int i = 1; i <= 5; ++i) {
-        if (i == currentSelection) {
-            std::cout << "-> ";
-        }
-        std::cout << i << ". ";
-        switch (i) {
-        case 1:
-            std::cout << "New game";
-            break;
-        case 2:
-            std::cout << "Resume";
-            break;
-        case 3:
-            std::cout << "Music";
-            break;
-        case 4:
-            std::cout << "Help";
-            break;
-        case 5:
-            std::cout << "Quit";
-            break;
-        }
-        std::cout << std::endl;
-    }
 }
 
 void mainMenu()
