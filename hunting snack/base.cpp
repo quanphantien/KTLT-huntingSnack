@@ -36,10 +36,10 @@ const char* snake_string = "22120385";
 
 using namespace std;
 
-void drawHelpBox(int width, int height, const std::vector<std::string>& instructions) {
+void drawBox(int width, int height, const std::vector<std::string>& text) {
     // Xác định vị trí bắt đầu vẽ ô
-    WIDTH_CONSOLE = 70;
-    HEIGH_CONSOLE = 20;
+    WIDTH_CONSOLE = 71;
+    HEIGH_CONSOLE = 21;
     int xgame = (WIDTH_CONSOLE / 2) - (width / 2);
     int ygame = (HEIGH_CONSOLE / 2) - (height / 2);
 
@@ -53,9 +53,9 @@ void drawHelpBox(int width, int height, const std::vector<std::string>& instruct
     for (int i = 0; i < height - 2; ++i) {
         GotoXY(xgame, ygame + i + 1);
         std::cout << (unsigned char)186;
-        if (i < instructions.size()) {
-            std::cout << " " << instructions[i];
-            int spaces = width - 3 - instructions[i].length();
+        if (i < text.size()) {
+            std::cout << " " << text[i];
+            int spaces = width - 3 - text[i].length();
             for (int j = 0; j < spaces; ++j) std::cout << " ";
         }
         else {
@@ -230,8 +230,17 @@ void DrawSnakeAndFood(const char* str) {
 // Function to process the dead of snake
 void ProcessDead() {
     STATE = 0;
-    GotoXY(0, HEIGH_CONSOLE + 2);
-    printf("Dead, type y to continue or anykey to exit");
+    std::vector<std::string> game_over = {
+        "===============================",
+        "           GAME OVER           ",
+        "===============================",
+        " SCORE:        HIGH SCORE:     ",
+        "           CONTINUE?           ",
+        "    Y:Yes             N:No     "
+    };
+    int boxWidth = 35;
+    int boxHeight = 9;
+    drawBox(boxWidth, boxHeight, game_over);
 }
 
 bool IsExistedFileName(string FileName)

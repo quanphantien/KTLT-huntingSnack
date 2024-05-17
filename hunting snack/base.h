@@ -27,7 +27,7 @@ extern int HEIGH_CONSOLE, WIDTH_CONSOLE;
 extern int FOOD_INDEX;
 extern int SIZE_SNAKE;
 extern int STATE;
-void drawHelpBox(int width, int height, const std::vector<std::string>& instructions);
+void drawBox(int width, int height, const std::vector<std::string>& Text);
 bool IsValid(int x, int y);
 void GenerateFood();
 void ResetData();

@@ -1,0 +1,181 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\ran_san_moi\\KTLT-huntingSnack\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{8E52F6DC-735D-4920-B586-0D16DBDA9505}|hunting snack\\hunting snack.vcxproj|E:\\ran_san_moi\\KTLT-huntingSnack\\hunting snack\\base.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{8E52F6DC-735D-4920-B586-0D16DBDA9505}|hunting snack\\hunting snack.vcxproj|solutionrelative:hunting snack\\base.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8E52F6DC-735D-4920-B586-0D16DBDA9505}|hunting snack\\hunting snack.vcxproj|E:\\ran_san_moi\\KTLT-huntingSnack\\hunting snack\\menu.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{8E52F6DC-735D-4920-B586-0D16DBDA9505}|hunting snack\\hunting snack.vcxproj|solutionrelative:hunting snack\\menu.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8E52F6DC-735D-4920-B586-0D16DBDA9505}|hunting snack\\hunting snack.vcxproj|E:\\ran_san_moi\\KTLT-huntingSnack\\hunting snack\\base.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{8E52F6DC-735D-4920-B586-0D16DBDA9505}|hunting snack\\hunting snack.vcxproj|solutionrelative:hunting snack\\base.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8E52F6DC-735D-4920-B586-0D16DBDA9505}|hunting snack\\hunting snack.vcxproj|E:\\ran_san_moi\\KTLT-huntingSnack\\hunting snack\\Console.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{8E52F6DC-735D-4920-B586-0D16DBDA9505}|hunting snack\\hunting snack.vcxproj|solutionrelative:hunting snack\\Console.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8E52F6DC-735D-4920-B586-0D16DBDA9505}|hunting snack\\hunting snack.vcxproj|E:\\ran_san_moi\\KTLT-huntingSnack\\hunting snack\\Graphic.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{8E52F6DC-735D-4920-B586-0D16DBDA9505}|hunting snack\\hunting snack.vcxproj|solutionrelative:hunting snack\\Graphic.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8E52F6DC-735D-4920-B586-0D16DBDA9505}|hunting snack\\hunting snack.vcxproj|E:\\ran_san_moi\\KTLT-huntingSnack\\hunting snack\\menu.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{8E52F6DC-735D-4920-B586-0D16DBDA9505}|hunting snack\\hunting snack.vcxproj|solutionrelative:hunting snack\\menu.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8E52F6DC-735D-4920-B586-0D16DBDA9505}|hunting snack\\hunting snack.vcxproj|E:\\ran_san_moi\\KTLT-huntingSnack\\hunting snack\\Console.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{8E52F6DC-735D-4920-B586-0D16DBDA9505}|hunting snack\\hunting snack.vcxproj|solutionrelative:hunting snack\\Console.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8E52F6DC-735D-4920-B586-0D16DBDA9505}|hunting snack\\hunting snack.vcxproj|E:\\ran_san_moi\\KTLT-huntingSnack\\hunting snack\\Graphic.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{8E52F6DC-735D-4920-B586-0D16DBDA9505}|hunting snack\\hunting snack.vcxproj|solutionrelative:hunting snack\\Graphic.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8E52F6DC-735D-4920-B586-0D16DBDA9505}|hunting snack\\hunting snack.vcxproj|E:\\ran_san_moi\\KTLT-huntingSnack\\hunting snack\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{8E52F6DC-735D-4920-B586-0D16DBDA9505}|hunting snack\\hunting snack.vcxproj|solutionrelative:hunting snack\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "base.h",
+              "DocumentMoniker": "E:\\ran_san_moi\\KTLT-huntingSnack\\hunting snack\\base.h",
+              "RelativeDocumentMoniker": "hunting snack\\base.h",
+              "ToolTip": "E:\\ran_san_moi\\KTLT-huntingSnack\\hunting snack\\base.h",
+              "RelativeToolTip": "hunting snack\\base.h",
+              "ViewState": "AQIAABsAAAAAAAAAAAAAAB0AAABKAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-05-17T15:28:03.734Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Console.h",
+              "DocumentMoniker": "E:\\ran_san_moi\\KTLT-huntingSnack\\hunting snack\\Console.h",
+              "RelativeDocumentMoniker": "hunting snack\\Console.h",
+              "ToolTip": "E:\\ran_san_moi\\KTLT-huntingSnack\\hunting snack\\Console.h",
+              "RelativeToolTip": "hunting snack\\Console.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-05-17T15:28:02.973Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Graphic.h",
+              "DocumentMoniker": "E:\\ran_san_moi\\KTLT-huntingSnack\\hunting snack\\Graphic.h",
+              "RelativeDocumentMoniker": "hunting snack\\Graphic.h",
+              "ToolTip": "E:\\ran_san_moi\\KTLT-huntingSnack\\hunting snack\\Graphic.h",
+              "RelativeToolTip": "hunting snack\\Graphic.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-05-17T15:28:02.045Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "menu.h",
+              "DocumentMoniker": "E:\\ran_san_moi\\KTLT-huntingSnack\\hunting snack\\menu.h",
+              "RelativeDocumentMoniker": "hunting snack\\menu.h",
+              "ToolTip": "E:\\ran_san_moi\\KTLT-huntingSnack\\hunting snack\\menu.h",
+              "RelativeToolTip": "hunting snack\\menu.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-05-17T15:28:01.02Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "base.cpp",
+              "DocumentMoniker": "E:\\ran_san_moi\\KTLT-huntingSnack\\hunting snack\\base.cpp",
+              "RelativeDocumentMoniker": "hunting snack\\base.cpp",
+              "ToolTip": "E:\\ran_san_moi\\KTLT-huntingSnack\\hunting snack\\base.cpp",
+              "RelativeToolTip": "hunting snack\\base.cpp",
+              "ViewState": "AQIAAOMAAAAAAAAAAAAmwPIAAAAsAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-05-17T15:27:59.982Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Console.cpp",
+              "DocumentMoniker": "E:\\ran_san_moi\\KTLT-huntingSnack\\hunting snack\\Console.cpp",
+              "RelativeDocumentMoniker": "hunting snack\\Console.cpp",
+              "ToolTip": "E:\\ran_san_moi\\KTLT-huntingSnack\\hunting snack\\Console.cpp",
+              "RelativeToolTip": "hunting snack\\Console.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-05-17T15:27:59.237Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Graphic.cpp",
+              "DocumentMoniker": "E:\\ran_san_moi\\KTLT-huntingSnack\\hunting snack\\Graphic.cpp",
+              "RelativeDocumentMoniker": "hunting snack\\Graphic.cpp",
+              "ToolTip": "E:\\ran_san_moi\\KTLT-huntingSnack\\hunting snack\\Graphic.cpp",
+              "RelativeToolTip": "hunting snack\\Graphic.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-05-17T15:27:58.469Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "main.cpp",
+              "DocumentMoniker": "E:\\ran_san_moi\\KTLT-huntingSnack\\hunting snack\\main.cpp",
+              "RelativeDocumentMoniker": "hunting snack\\main.cpp",
+              "ToolTip": "E:\\ran_san_moi\\KTLT-huntingSnack\\hunting snack\\main.cpp",
+              "RelativeToolTip": "hunting snack\\main.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-05-17T15:27:57.692Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "menu.cpp",
+              "DocumentMoniker": "E:\\ran_san_moi\\KTLT-huntingSnack\\hunting snack\\menu.cpp",
+              "RelativeDocumentMoniker": "hunting snack\\menu.cpp",
+              "ToolTip": "E:\\ran_san_moi\\KTLT-huntingSnack\\hunting snack\\menu.cpp",
+              "RelativeToolTip": "hunting snack\\menu.cpp",
+              "ViewState": "AQIAAF0AAAAAAAAAAAAAAE0AAAAWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-05-17T15:27:56.356Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

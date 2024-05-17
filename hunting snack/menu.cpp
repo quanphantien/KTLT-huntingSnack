@@ -78,7 +78,7 @@ void mainMenu()
                     };
                 int boxWidth = 50;
                 int boxHeight = 10;
-                drawHelpBox(boxWidth, boxHeight, instructions);
+                drawBox(boxWidth, boxHeight, instructions);
                 cout << "\n";
 
                 displayBackMenu();
