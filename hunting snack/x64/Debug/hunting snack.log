@@ -1,0 +1,30 @@
+﻿  Animation.cpp
+D:\Download\Huntingsnake\hunting snack NMTri 4.33pm\hunting snack\Animation.cpp(78,11): warning C4244: 'argument': conversion from 'double' to 'DWORD', possible loss of data
+  base.cpp
+D:\Download\Huntingsnake\hunting snack NMTri 4.33pm\hunting snack\base.cpp(60,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+D:\Download\Huntingsnake\hunting snack NMTri 4.33pm\hunting snack\base.cpp(458,11): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Console.cpp
+D:\Download\Huntingsnake\hunting snack NMTri 4.33pm\hunting snack\Console.cpp(6,17): warning C4838: conversion from 'int' to 'SHORT' requires a narrowing conversion
+D:\Download\Huntingsnake\hunting snack NMTri 4.33pm\hunting snack\Console.cpp(6,26): warning C4838: conversion from 'int' to 'SHORT' requires a narrowing conversion
+D:\Download\Huntingsnake\hunting snack NMTri 4.33pm\hunting snack\Console.cpp(7,36): warning C4838: conversion from 'int' to 'SHORT' requires a narrowing conversion
+D:\Download\Huntingsnake\hunting snack NMTri 4.33pm\hunting snack\Console.cpp(7,46): warning C4838: conversion from 'int' to 'SHORT' requires a narrowing conversion
+  GamePlay.cpp
+  Graphic.cpp
+D:\Download\Huntingsnake\hunting snack NMTri 4.33pm\hunting snack\Graphic.cpp(70,16): warning C4838: conversion from 'int' to 'SHORT' requires a narrowing conversion
+D:\Download\Huntingsnake\hunting snack NMTri 4.33pm\hunting snack\Graphic.cpp(70,19): warning C4838: conversion from 'int' to 'SHORT' requires a narrowing conversion
+D:\Download\Huntingsnake\hunting snack NMTri 4.33pm\hunting snack\Graphic.cpp(82,12): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Download\Huntingsnake\hunting snack NMTri 4.33pm\hunting snack\Graphic.cpp(88,13): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Load.cpp
+  main.cpp
+D:\Download\Huntingsnake\hunting snack NMTri 4.33pm\hunting snack\main.cpp(17,6): warning C4326: return type of 'main' should be 'int' instead of 'void'
+  Map.cpp
+  menu.cpp
+D:\Download\Huntingsnake\hunting snack NMTri 4.33pm\hunting snack\menu.cpp(43,14): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\Download\Huntingsnake\hunting snack NMTri 4.33pm\hunting snack\menu.cpp(46,14): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\Download\Huntingsnake\hunting snack NMTri 4.33pm\hunting snack\menu.cpp(47,14): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\Download\Huntingsnake\hunting snack NMTri 4.33pm\hunting snack\menu.cpp(76,14): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\Download\Huntingsnake\hunting snack NMTri 4.33pm\hunting snack\menu.cpp(365,21): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\Download\Huntingsnake\hunting snack NMTri 4.33pm\hunting snack\menu.cpp(526,22): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  Save.cpp
+  Generating Code...
+  hunting snack.vcxproj -> D:\Download\Huntingsnake\hunting snack NMTri 4.33pm\x64\Debug\hunting snack.exe
