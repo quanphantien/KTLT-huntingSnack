@@ -1,13 +1,17 @@
-#include <Windows.h>
-
 #pragma once
 
-#include <iostream>
-#include <vector>
-#include "Graphic.h"
 #include "base.h"
 #include "Console.h"
+#include <conio.h>
+#include <iostream>
+#include <vector>
+#include <Windows.h>
 
 using namespace std;
 
-void DrawFrame(POINT start, int width, int height, vector<string> typebox = { "╔" ,"║" ,"╚" ,"═" ,"╝","╗" }); //Vẽ khung, truyền vào start là vị trí bắt đầu của khung, width: độ rộng khung, height: chiều cao khung
+void setColorText(int n);
+void DrawFrame(POINT start, int width, int height, vector<string> typebox = { "╔" ,"║" ,"╚" ,"═" ,"╝","╗" });
+void drawGate();
+void clearFrame(POINT start, int width, int height);
+void drawText(int x, int y, const string& text);
+void drawIntroFrame(POINT p, int w, int h, const string& logo, const string& title);

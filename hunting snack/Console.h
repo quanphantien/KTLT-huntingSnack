@@ -1,6 +1,9 @@
 #pragma once
 
-void setConsoleSize(int columns, int rows); //Thiết lập độ lớn màn hình
+#include <Windows.h>
+
+void setConsoleSize(int columns, int rows);
 void GotoXY(int x, int y);
 void FixConsoleWindow();
-void ShowConsoleCursor(bool showFlag);//Hiện/ẩn con trỏ chuột
+void ShowConsoleCursor(bool showFlag);
+void clearRectangle(int x, int y, int width, int height);

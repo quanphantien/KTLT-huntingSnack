@@ -134,17 +134,32 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Animation.cpp" />
     <ClCompile Include="base.cpp" />
     <ClCompile Include="Console.cpp" />
+    <ClCompile Include="GamePlay.cpp" />
     <ClCompile Include="Graphic.cpp" />
+    <ClCompile Include="Load.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Map.cpp" />
     <ClCompile Include="menu.cpp" />
+    <ClCompile Include="Save.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.h" />
     <ClInclude Include="base.h" />
     <ClInclude Include="Console.h" />
+    <ClInclude Include="GamePlay.h" />
     <ClInclude Include="Graphic.h" />
+    <ClInclude Include="Load.h" />
+    <ClInclude Include="Map.h" />
     <ClInclude Include="menu.h" />
+    <ClInclude Include="Save.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="level1.txt" />
+    <Text Include="level2.txt" />
+    <Text Include="level3.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,21 +1,29 @@
 ﻿#define _CRT_NONSTDC_NO_WARNINGS
 #define _CRT_SECURE_NO_WARNINGS
-#include "base.h"
-#include <Windows.h>
+
 #include <iostream>
-#include <string.h>
-#include <thread>
-#include <conio.h>
-#include<string>
-#include <fstream>
-#include "Console.h"
+#include "base.h"
+#include "menu.h"
+#include "Map.h"
+#include "Animation.h"
+#include "Graphic.h"
+#include "GamePlay.h"
+#include <string>
+#include "Save.h"
+#include "Load.h"
+#include <sstream>
 #include <vector>
 
+using namespace std;
+
+int OLDSPEED = 3;
 HIGHLENGTH HighLength[5];
 HIGHLENGTH NewLength;
-POINT snake[100]; //snake
+POINT snake[1000]; //snake
 POINT food[4]; // food
 POINT a;
+
+int score = 0;
 int INDEX_ID;
 int CHAR_LOCK;
 int MOVING;
@@ -27,82 +35,53 @@ int SIZE_PLUS;
 int STATE;
 int ROUND;
 int win;
-bool GATE_EXIST;
+
 char highlength[] = "HIGH LENGTH";
 char yes[] = "Yes";
 char no[] = "No";
 char ok[] = "OK";
-const char* snake_string = "22120385";
+const char* snake_string = "2212017022120369221203852212039222120437";
 
-using namespace std;
-
-void drawBox(int width, int height, const std::vector<std::string>& text) {
-    // Xác định vị trí bắt đầu vẽ ô
-    WIDTH_CONSOLE = 71;
-    HEIGH_CONSOLE = 21;
-    int xgame = (WIDTH_CONSOLE / 2) - (width / 2);
-    int ygame = (HEIGH_CONSOLE / 2) - (height / 2);
-
-    // Vẽ cạnh trên
-    GotoXY(xgame, ygame);
-    std::cout << (unsigned char)201;
-    for (int i = 0; i < width - 2; ++i) std::cout << (unsigned char)205;
-    std::cout << (unsigned char)187;
-
-    // Vẽ các dòng giữa
-    for (int i = 0; i < height - 2; ++i) {
-        GotoXY(xgame, ygame + i + 1);
-        std::cout << (unsigned char)186;
-        if (i < text.size()) {
-            std::cout << " " << text[i];
-            int spaces = width - 3 - text[i].length();
-            for (int j = 0; j < spaces; ++j) std::cout << " ";
-        }
-        else {
-            for (int j = 0; j < width - 2; ++j) std::cout << " ";
-        }
-        std::cout << (unsigned char)186;
-    }
-
-    // Vẽ cạnh dưới
-    GotoXY(xgame, ygame + height - 1);
-    std::cout << (unsigned char)200;
-    for (int i = 0; i < width - 2; ++i) std::cout << (unsigned char)205;
-    std::cout << (unsigned char)188;
-}
-
+// Kiểm tra toạ độ của rắn
 bool IsValid(int x, int y) {
+    bool flag1=true;
     for (int i = 0; i < SIZE_SNAKE; i++) {
         if (snake[i].x == x && snake[i].y == y) {
-            return false;
+            flag1= false;
         }
     }
-    return true;
+    return flag1 && (map[x-25][y-5] != 0);
+    
 }
 
+// Tạo mồi ngẫu nhiên
 void GenerateFood() {
     int x, y;
     srand(time(NULL));
     for (int i = 0; i < MAX_SIZE_FOOD; i++) {
         do {
-            x = rand() % (WIDTH_CONSOLE - 1) + 1;
-            y = rand() % (HEIGH_CONSOLE - 1) + 1;
+            x = rand() % (WIDTHCONSOLE - 2) + startX+1;
+            y = rand() % (HEIGHTCONSOLE -2) + startY+1;
         } while (IsValid(x, y) == false);
         food[i] = { x,y };
     }
 }
 
+// Thiết lập lại dữ liệu ban đầu của rắn
 void ResetData() {
     //Initialize the global values
-    CHAR_LOCK = 'A', MOVING = 'D', SPEED = 1; FOOD_INDEX = 0, WIDTH_CONSOLE = 70,
-        HEIGH_CONSOLE = 20, SIZE_SNAKE = 6;
+    CHAR_LOCK = 'A', MOVING = 'D', SPEED = 3, FOOD_INDEX = 0, WIDTH_CONSOLE = 68,
+        HEIGH_CONSOLE = 19, SIZE_SNAKE = 6;
+    currentLevel = 0;
     // Initialize default values for snake
-    snake[0] = { 10, 5 }; snake[1] = { 11, 5 };
-    snake[2] = { 12, 5 }; snake[3] = { 13, 5 };
-    snake[4] = { 14, 5 }; snake[5] = { 15, 5 };
+    snake[0] = { 21, 15 }; snake[1] = { 22, 15 };//
+    snake[2] = { 23, 15 }; snake[3] = { 24, 15 };//
+    snake[4] = { 25, 15 }; snake[5] = { 26, 15 };//
     GenerateFood(); // Create food array
 }
 
+
+// Vẽ bảng (có vẻ không cần thiết lắm vì có DrawFrame())
 void DrawBoard(int x, int y, int width, int height, int curPosX, int curPosY) {
     GotoXY(x, y); cout << 'X';
     for (int i = 1; i < width; i++) cout << 'X';
@@ -117,147 +96,265 @@ void DrawBoard(int x, int y, int width, int height, int curPosX, int curPosY) {
     GotoXY(curPosX, curPosY);
 }
 
+// Bắt đầu game
 void StartGame() {
-    system("cls");
+    score = 0;
     ResetData(); // Intialize original data
-    DrawBoard(0, 0, WIDTH_CONSOLE, HEIGH_CONSOLE); // Draw game
+       POINT pBox{ 25,5 };
+    int wBox = 66, hBox = 18;
+    setColorText(243);
+    DrawFrame(pBox, wBox, hBox);
+    LoadMap(levels[currentLevel].filename, map);
+    STATE = 1;//Start running Thread
+}
+// Bắt đầu game
+void ConsumeGame() {
+    score = 0;
+     // Intialize original data
+    POINT pBox{ 25,5 };
+    int wBox = 66, hBox = 18;
+    setColorText(243);
+    DrawFrame(pBox, wBox, hBox);
     STATE = 1;//Start running Thread
 }
 
-// Function exit game
+// Thoát game
 void ExitGame(HANDLE t) {
     system("cls");
     TerminateThread(t, 0);
+    exit(0);
 }
-void CountDown() {
-    int x = 1;
-    int y = 1;
-    for (int i = 0; i < HEIGH_CONSOLE - 1; i++) {
-        GotoXY(x, y + i);
-        for (int j = 0; j < WIDTH_CONSOLE - 1; j++) {
-            cout << " ";
+// In Số
+void In(int x, POINT Center) { // ▄ , █
+    //SetConsoleOutputCP(CP_UTF8);
+    if (x == 3) {
+        GotoXY(Center.x - 2, Center.y - 2);
+        cout << u8"▄▄▄▄▄";
+        GotoXY(Center.x - 2, Center.y);
+        cout << u8"▄▄▄▄";
+        GotoXY(Center.x - 2, Center.y + 2);
+        cout << u8"▄▄▄▄";
+        for (int i = 0; i < 4; i++) {
+            GotoXY(Center.x + 2, Center.y - 1 + i);
+            cout << u8"█";
         }
     }
-    for (int i = 3; i > 0; i--) {
-        GotoXY(WIDTH_CONSOLE / 2, HEIGH_CONSOLE / 2);
-        cout << i;
+    else if (x == 2) {
+        GotoXY(Center.x - 2, Center.y - 2);
+        cout << u8"▄▄▄▄▄";
+        GotoXY(Center.x - 2, Center.y);
+        cout << u8"▄▄▄▄";
+        GotoXY(Center.x - 1, Center.y + 2);
+        cout << u8"▄▄▄▄";
+        GotoXY(Center.x + 2, Center.y - 1); cout << u8"█";
+        GotoXY(Center.x + 2, Center.y); cout << u8"█";
+        GotoXY(Center.x - 2, Center.y + 1); cout << u8"█";
+        GotoXY(Center.x - 2, Center.y + 2); cout << u8"█";
+    }
+    else if (x == 1) {
+        GotoXY(Center.x, Center.y - 2);
+        cout << u8"▄";
+        for (int i = 0; i < 4; i++) {
+            GotoXY(Center.x, Center.y - 1 + i);
+            cout << u8"█";
+        }
+    }
+    else {
+        GotoXY(Center.x - 5, Center.y - 1);
+        cout << u8"▄▄▄▄ ▄▄▄▄";
+        this_thread::sleep_for(chrono::milliseconds(100));
+        GotoXY(Center.x - 5, Center.y);
+        cout << u8"█ ▄▄ █  █";
+        this_thread::sleep_for(chrono::milliseconds(100));
+        GotoXY(Center.x - 5, Center.y + 1);
+        cout << u8"█▄▄█ █▄▄█";
+
+    }
+}
+
+// Đếm ngược
+void CountDown(int x, int y, int width, int height) {
+    POINT Center = { 59,13 };
+    POINT Start = { x,y };
+    clearFrame(Start, width, height);
+    for (int i = 3; i > -1; i--) {
+        if(sfx) if (sfx) PlaySound(TEXT("snd_bell.wav"), NULL, SND_FILENAME | SND_ASYNC);
+        GotoXY(Center.x, Center.y);
+        In(i, Center);
         this_thread::sleep_for(chrono::seconds(1));
+        clearFrame(Start, width, height);
     }
-    GotoXY(WIDTH_CONSOLE / 2, HEIGH_CONSOLE / 2);
-    cout << "Go";
-    this_thread::sleep_for(chrono::milliseconds(500));
-    GotoXY(WIDTH_CONSOLE / 2, HEIGH_CONSOLE / 2);
-    cout << "  ";
+
 }
 
-// Function pause game
+// Dừng game
 void PauseGame(HANDLE t) {
+    if (sfx) PlaySound(TEXT("snd_select.wav"), NULL, SND_FILENAME | SND_ASYNC);
     SuspendThread(t);
-    int column = 30;
-    int row = 8;
-    int xgame = (WIDTH_CONSOLE / 2) - 15;
-    int ygame = (HEIGH_CONSOLE / 2) - 3;
-
-    for (int i = 0; i < row; i++)
-    {
-        GotoXY(xgame, ygame + i);
-        for (int j = 0; j < column; j++)
-        {
-            if (i == 0)
-                cout << (unsigned char)220;
-            else if (i == row - 1)
-                cout << (unsigned char)223;
-            else if (j == 0 || j == column - 1)
-                cout << (unsigned char)219;
-            else
-                cout << " ";
-        }
-    }
-    GotoXY(xgame + 10, ygame + 2);
+    int x = 43; int y = 10; //Vi tri phia tren ben trai cua khung
+    int width = 30, height = 7; //Kich thuoc cua khung
+    POINT PauseBox = { x,y };
+    clearFrame(PauseBox, width - 2, height - 2);
+    DrawFrame(PauseBox, width, height);
+    GotoXY(x + 10, y + 2);
     cout << "Pause Game";
-    GotoXY(xgame + 3, ygame + 4);
+    GotoXY(x + 3, y + 4);
     cout << "Continue";
-    GotoXY(xgame + 3, ygame + 5);
+    GotoXY(x + 3, y + 5);
     cout << "(Press C)";
-    GotoXY(xgame + 20, ygame + 4);
+    GotoXY(x + 20, y + 4);
     cout << "Save";
-    GotoXY(xgame + 17, ygame + 5);
+    GotoXY(x + 17, y + 5);
     cout << "(Press S)";
     int temp2 = 0;
     while (temp2 != 'C' && temp2 != 'S') {
         temp2 = toupper(getch());
     }
     if (temp2 == 'C') {
-
-        CountDown();
+        CountDown(x, y, width, height);
         ResumeThread(t);
     }
     else SaveData();
 }
-// Function pause game
 
-
-// Function to update global data
+// Rắn ăn mồi (Function to update global data)
 void Eat() {
+    score++;
+    GotoXY(10, 6);
+    cout << "Score: " << score;
+    DrawScoreGraphic(score);
     snake[SIZE_SNAKE] = food[FOOD_INDEX];
     if (FOOD_INDEX == MAX_SIZE_FOOD - 1) {
         FOOD_INDEX = 0;
-        SIZE_SNAKE = 6;
+        SIZE_SNAKE++;
         if (SPEED == MAX_SPEED)
+        {
             SPEED = 1;
-        else
+            SIZE_SNAKE = 6;
+        }
+        else {
             SPEED++;
+        }
         GenerateFood();
     }
     else {
+        if (sfx) PlaySound(TEXT("snd_heal_c.wav"), NULL, SND_FILENAME | SND_ASYNC);
         FOOD_INDEX++;
         SIZE_SNAKE++;
     }
 }
 
-// Function to draw
-void DrawSnakeAndFood(const char* str) {
+// Vẽ rắn và mồi (Function to draw)
+void DrawSnake(const char* str) {
     int index = 0;
-    for (int i = 0; i < SIZE_SNAKE; i++) {
-        GotoXY(snake[i].x, snake[i].y);
-        cout << str[index++];
+    setColorText(251);
+    for (int i = 0; i < SIZE_SNAKE - 1; i++)
+    {
+        if (snake[i].x >= startX +1 && snake[i].y >= startY+1)//moi
+        {
+            GotoXY(snake[i].x, snake[i].y);
+            cout << str[index];//moi
+        }
+        else
+        {
+            snake[i].x = snake[i].y = 0;
+        }
+        index++;//moi
         if (index >= strlen(str)) index = 0;
     }
+    if (snake[SIZE_SNAKE - 1].x > startX && snake[SIZE_SNAKE - 1].y > startY)
+    {
+        GotoXY(snake[SIZE_SNAKE - 1].x, snake[SIZE_SNAKE - 1].y);
+        setColorText(253);
+        switch (MOVING)
+        {
+        case 'D':
+            cout << u8"►";
+            break;
+        case 'A':
+            cout << u8"◄";
+            break;
+        case 'S':
+            cout << u8"▼";
+            break;
+        default:
+            cout << u8"▲";
+            break;
+        }
+    }
+}
+
+void DrawFood()
+{
     GotoXY(food[FOOD_INDEX].x, food[FOOD_INDEX].y);
-    cout << str[index++];
+    setColorText(250);
+    cout << u8"■";
 }
 
-// Function to process the dead of snake
+bool IsInsideGameoverArea(int x, int y, POINT game_over, int width, int height) {
+    // Kiểm tra xem tọa độ (x, y) có nằm trong phạm vi của bảng game over không
+    return (x >= game_over.x && x < game_over.x + width && y >= game_over.y && y < game_over.y + height);
+}
+
+void ClearSnakeAndFoodInGameoverArea(POINT game_over, int width, int height) {
+    // Xóa rắn nếu nó nằm trong phạm vi của bảng game over
+    for (int i = 0; i < SIZE_SNAKE; ++i) {
+        if (IsInsideGameoverArea(snake[i].x, snake[i].y, game_over, width, height)) {
+            GotoXY(snake[i].x, snake[i].y);
+            cout << " "; // Xóa rắn
+        }
+    }
+    // Xóa đồ ăn nếu nó nằm trong phạm vi của bảng game over
+    if (IsInsideGameoverArea(food[FOOD_INDEX].x, food[FOOD_INDEX].y, game_over, width, height)) {
+        GotoXY(food[FOOD_INDEX].x, food[FOOD_INDEX].y);
+        cout << " "; // Xóa đồ ăn
+    }
+}
+
+// Rắn chết (Function to process the dead of snake)
 void ProcessDead() {
+    if (sfx) PlaySound(TEXT("snd_damage_c.wav"), NULL, SND_FILENAME | SND_ASYNC);
     STATE = 0;
-    std::vector<std::string> game_over = {
-        "===============================",
-        "           GAME OVER           ",
-        "===============================",
-        " SCORE:        HIGH SCORE:     ",
-        "           CONTINUE?           ",
-        "    Y:Yes             N:No     "
+    BlinkSnake(6, 200, snake_string);    
+    POINT game_over = { 49, 10 };
+    //ClearSnakeAndFoodInGameoverArea(game_over, 18, 9);
+    DeleteBox(game_over.x + 1, game_over.y + 1, 18, 9);
+    DrawFrame(game_over, 18, 9);
+    std::vector<std::string> game_over_text = {
+        "================",
+        "    GAME OVER   ",
+        "================",
+        "                ",
+        "                ",
+        "    RESTART?    ",
+        "                ",
+        " Y:Yes     N:No "
     };
-    int boxWidth = 35;
-    int boxHeight = 9;
-    drawBox(boxWidth, boxHeight, game_over);
+    std::string scoreStr = "    SCORE: "+to_string(score);
+    game_over_text.insert(game_over_text.begin() + 4, scoreStr);
+    GotoXY(75, 1);
+    for (int i = 0; i < game_over_text.size(); ++i) {
+        GotoXY(game_over.x + 2, game_over.y + i + 1);
+        std::cout << game_over_text[i];
+    }
+    
 }
 
+// Kiểm tra tên file có tồn tại?
 bool IsExistedFileName(string FileName)
 {
-    ifstream f_user(".\\Data\\username.txt");
-    string tmp;
+    vector<Saver> savers;
+    loadVectorFromFile(savers, "./Data/username.bin");
 
-    while (f_user >> tmp)
-        if (tmp == FileName)
+    for(int i=0;i<savers.size();i++)
+        if (savers[i].name == FileName)
         {
-            f_user.close();
             return true;
         }
-    f_user.close();
     return false;
 }
 
+// Kiểm tra tên file có hợp lệ?
 bool IsValidFileName(string FileName)
 {
     for (int i = 0; i < FileName.length(); i++)
@@ -268,38 +365,28 @@ bool IsValidFileName(string FileName)
     return true;
 }
 
-void DeleteBox()
+// Xoá bảng chữ nhật 1
+void DeleteBox(int x, int y, int w, int h)
 {
-    int column = 30;
-    int row = 8;
-    int xgame = (WIDTH_CONSOLE / 2) - 15;
-    int ygame = (HEIGH_CONSOLE / 2) - 3;
-
-    for (int i = 0; i < row; i++)
+    for (int i = 0; i < h; i++)
     {
-        GotoXY(xgame, ygame + i);
-        for (int j = 0; j < column; j++)
+        GotoXY(x, y + i);
+        for (int j = 0; j < w; j++)
         {
-            if (i == 0)
-                cout << " ";
-            else if (i == row - 1)
-                cout << " ";
-            else if (j == 0 || j == column - 1)
-                cout << " ";
-            else
-                cout << " ";
+            cout << ' ';
         }
     }
 }
 
+// Lưu tiến trình
 void SaveData()
 {
     string FileName;
 
-    int column = 30;
-    int row = 8;
-    int xgame = (WIDTH_CONSOLE / 2) - 15;
-    int ygame = (HEIGH_CONSOLE / 2) - 3;
+    int column = 50;
+    int row = 10;
+    int xgame = (WIDTHCONSOLE / 2) - 15+10;
+    int ygame = (HEIGHTCONSOLE / 2) - 3+4;
 
     for (int i = 0; i < row; i++)
     {
@@ -307,87 +394,79 @@ void SaveData()
         for (int j = 0; j < column; j++)
         {
             if (i == 0)
-                cout << (unsigned char)220;
+                cout << u8"▄";
             else if (i == row - 1)
-                cout << (unsigned char)223;
+                cout << u8"▀";
             else if (j == 0 || j == column - 1)
-                cout << (unsigned char)219;
+                cout << u8"█";
             else
                 cout << " ";
         }
     }
 
     GotoXY(xgame + 9, ygame + 2);
-    cout << "Save and Exit";
+    cout << "         Save and Exit";
     GotoXY(xgame + 14, ygame + 5);
-    TextColor(3, ok);
+    setColorText(250);
     GotoXY(xgame + 3, ygame + 3);
     cout << "Name: ";
 
     do
     {
+        GotoXY(xgame + 3, ygame + 4);
+        cout << "                           ";
         GotoXY(xgame + 9, ygame + 3);
-        cin >> FileName;
+        char s[12];
+        cin.getline(s, 12);
+        FileName = s;
         GotoXY(xgame + 3, ygame + 4);
         if (IsExistedFileName(FileName))
-            cout << "File existed, re-type!";
-        if (!IsValidFileName(FileName))
-            cout << "Invalid char, re-type!";
-        if (FileName.length() > 18)
-            cout << "Too long, re-type!";
+            cout << "File existed, please enter again!";
+        if (!IsValidFileName(FileName+".bin"))
+            cout << "Invalid char, please enter again!";
+        if (FileName.length() > 12)
+            cout << "Too long, please enter again!";
 
-        if (IsExistedFileName(FileName) || !IsValidFileName(FileName) || FileName.length() > 18)
+        if (IsExistedFileName(FileName) || !IsValidFileName(FileName) || FileName.length() > 12)
         {
             GotoXY(xgame + 9, ygame + 3);
-            for (int i = 0; i < 18; i++)
+            for (int i = 0; i < 25; i++)
                 cout << " ";
         }
-    } while (IsExistedFileName(FileName) || !IsValidFileName(FileName) || FileName.length() > 18);
+    } while (IsExistedFileName(FileName) || !IsValidFileName(FileName) || FileName.length() > 12);
 
-    DeleteBox();
+    writeBinaryFile(FileName + ".bin", snake, SIZE_SNAKE, food, FOOD_INDEX, MOVING, CHAR_LOCK,currentLevel);
 
-    ofstream fo(".\\Data\\" + FileName);
+    vector<Saver> savers;
+    Saver saver;
 
-    ofstream f_user;
-    f_user.open(".\\Data\\username.txt", ios::app);
-    f_user << FileName << endl;
-    f_user.close();
+    loadVectorFromFile(savers, ".\\Data\\username.bin");
 
-    fo << SIZE_SNAKE << " " << SIZE_PLUS << endl;
+    saver.name = FileName;
+    saver.score = score;
+    stringstream ss;
+    printCurrentDateTime(ss);
+    saver.date = ss.str();
 
-    for (int i = 0; i < SIZE_SNAKE; i++)
-        fo << snake[i].x << " " << snake[i].y << endl;
+    savers.push_back(saver);
 
-    fo << FOOD_INDEX << endl;
+    deleteAllBox();
+    GotoXY(xgame + 3, ygame + 3);
+    cout<<"Save successfully!";
+    Sleep(2000);
 
-    fo << food[FOOD_INDEX].x << " " << food[FOOD_INDEX].y << endl;
+    int n = savers.size() - 10;
+    if (n > 0)
+    {
+        savers.erase(savers.begin(), savers.begin() + n);
+    }
 
-    if (GATE_EXIST)
-        fo << a.x << " " << a.y << endl;
-    else
-        fo << -1 << " " << -1 << endl;
+    saveVectorToFile(savers, ".\\Data\\username.bin");
 
-    fo << INDEX_ID << endl;
-
-    fo << SPEED << endl;
-
-    fo << ROUND << endl;
-
-    fo << MOVING << endl;
-
-    fo << CHAR_LOCK << endl;
-
-    fo << win;
-
-    fo.close();
-
-    NewLength.name = FileName;
-    NewLength.length = SIZE_SNAKE + SIZE_PLUS;
-
-    CreateNewHighLength();
-    SortHighLength();
+    mainMenu({ 7,4 }, 12, 20);
 }
 
+// Tải tiến trình
 void LoadData()
 {
     string FileName;
@@ -433,7 +512,7 @@ void LoadData()
         }
     } while (!IsExistedFileName(FileName));
 
-    DeleteBox();
+    //DeleteBox();
 
     for (int i = 0; i < SIZE_SNAKE; i++)
     {
@@ -487,6 +566,8 @@ void LoadData()
 
     fi.close();
 }
+
+// Kiểm tra dữ liệu (độ dài rắn?)
 bool IsEmptyHighLengthFile()
 {
     ifstream fi;
@@ -503,6 +584,7 @@ bool IsEmptyHighLengthFile()
     return true;
 }
 
+// Lưu dữ liệu BXH
 void SaveHighLength()
 {
     remove(".\\Data\\highlength.txt");
@@ -517,6 +599,7 @@ void SaveHighLength()
     fo.close();
 }
 
+// Thiết lập lại BXH
 void ResetHighLength()
 {
     for (int i = 0; i < 5; i++)
@@ -527,6 +610,7 @@ void ResetHighLength()
     SaveHighLength();
 }
 
+// Tải dữ liệu BXH
 void InitializeHighLength()
 {
     if (!IsEmptyHighLengthFile())
@@ -552,7 +636,7 @@ void InitializeHighLength()
         ResetHighLength();
 }
 
-
+// Màu văn bản
 void TextColor(int color, char* OutputContent)
 {
     static int __BACKGROUND;
@@ -569,6 +653,7 @@ void TextColor(int color, char* OutputContent)
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7 + (__BACKGROUND << 4));
 }
 
+// Tạo mới BXH
 void CreateNewHighLength()
 {
     int minLength = HighLength[0].length;
@@ -595,6 +680,7 @@ void CreateNewHighLength()
     }
 }
 
+// Sắp xếp BXH
 void SortHighLength()
 {
     for (int i = 0; i < 4; i++)
@@ -612,6 +698,7 @@ void SortHighLength()
     SaveHighLength();
 }
 
+// Biểu diễn BXH
 void ShowHighLength()
 {
     ifstream fi;
@@ -669,9 +756,9 @@ void ShowHighLength()
     fi.close();
 }
 
-
+// Di chuyển phải
 void MoveRight() {
-    if (snake[SIZE_SNAKE - 1].x + 1 >= WIDTH_CONSOLE) {
+    if (snake[SIZE_SNAKE - 1].x >= startX+WIDTHCONSOLE-2) {
         ProcessDead();
     }
     else {
@@ -686,8 +773,15 @@ void MoveRight() {
     }
 }
 
-void MoveLeft() {
-    if (snake[SIZE_SNAKE - 1].x - 1 <= 0) {
+// Di chuyển trái
+void MoveLeft() 
+{
+    if (snake[SIZE_SNAKE - 1].x - 1 == 25 && snake[SIZE_SNAKE - 1].y == 16
+        && FOOD_INDEX == 3)
+    {
+        processGate();
+    }
+    if (snake[SIZE_SNAKE - 1].x - 1 <= startX) {
         ProcessDead();
     }
     else {
@@ -702,8 +796,9 @@ void MoveLeft() {
     }
 }
 
+// Di chuyển xuống
 void MoveDown() {
-    if (snake[SIZE_SNAKE - 1].y + 1 >= HEIGH_CONSOLE) {
+    if (snake[SIZE_SNAKE - 1].y >= HEIGHTCONSOLE+startY-1) {
         ProcessDead();
     }
     else {
@@ -718,8 +813,9 @@ void MoveDown() {
     }
 }
 
+// Di chuyển lên
 void MoveUp() {
-    if (snake[SIZE_SNAKE - 1].y - 1 <= 0) {
+    if (snake[SIZE_SNAKE - 1].y -1 <= startY) {
         ProcessDead();
     }
     else {
@@ -734,24 +830,36 @@ void MoveUp() {
     }
 }
 
-
-
-// Check if snake's head collides with its body
+// Kiểm tra rắn tự ăn mình (Check if snake's head collides with its body)
 void ProcessCollision() {
-    for (int i = 0; i < SIZE_SNAKE - 1; i++) {
+    for (int i = 0; i < SIZE_SNAKE - 1; i++) 
+    {
         if (snake[SIZE_SNAKE - 1].x == snake[i].x
             && snake[SIZE_SNAKE - 1].y == snake[i].y)
             ProcessDead();
     }
+    if (map[snake[SIZE_SNAKE - 1].y-5][snake[SIZE_SNAKE - 1].x-25] != 0) 
+    ProcessDead();
 }
 
 // Subfunction for thread
 void ThreadFunc() {
-    char str[256];
+    //mới 
+    //levels.push_back({ 1, "level1.txt" });
+    //levels.push_back({ 2, "level2.txt" });
+    //levels.push_back({ 3, "level3.txt" });
+
+    // ...
+
+    // Load bản đồ cho màn chơi đầu tiên
+    LoadMap(levels[currentLevel].filename, map);
+    char str[256]; 
+    DrawMap(map);//moi
+    //mới 
     while (1) {
         if (STATE == 1) { // If my snake is alive
             strcpy(str, " ");
-            DrawSnakeAndFood(str);
+            DrawSnake(str);
             switch (MOVING) {
             case 'A':
                 MoveLeft();
@@ -766,25 +874,38 @@ void ThreadFunc() {
                 MoveDown();
                 break;
             }
-            strcpy(str, "0");
-            DrawSnakeAndFood(snake_string);
+            DrawSnake(snake_string);
+            if (FOOD_INDEX != 3)
+            {
+                DrawFood();
+            }
+            else
+            {
+                processGate();
+            }
             Sleep(200 / SPEED); // Sleep function with SPEED variable
             ProcessCollision();
+
         }
     }
 }
 
+// Game mới
 void Newgame()
 {
-    Player a;
     int temp;
     FixConsoleWindow();
     StartGame();
+    score = 0;
+    GotoXY(10, 6);
+    cout << "Score: " << score;
     thread t1(ThreadFunc); // Create thread for snake
     HANDLE handle_t1 = t1.native_handle(); // Take handle of thread
-    while (1) {
+    while (1)
+    {
         temp = toupper(getch());
-        if (STATE == 1) {
+        if (STATE == 1)
+        {
             if (temp == 'P') {
                 PauseGame(handle_t1);
             }
@@ -800,7 +921,8 @@ void Newgame()
                 LoadData();
                 ResumeThread(handle_t1);
             }
-            else if (temp == 27) {
+            else if (temp == 'Q')
+            {
                 ExitGame(handle_t1);
                 return;
             }
@@ -816,11 +938,101 @@ void Newgame()
             }
         }
         else {
-            if (temp == 'Y') StartGame();
-            else {
-                ExitGame(handle_t1);
-                return;
+            if (temp == 'Y')
+            {
+                deleteAllBox();
+                StartGame();
+            }
+            else if (temp == 'N') {
+
+                SuspendThread(handle_t1);
+                mainMenu({ 7,4 }, 12, 20);
             }
         }
     }
+}
+
+void printCurrentDateTime(ostream& os) {
+    // Lấy thời gian hiện tại
+    std::time_t currentTime = std::time(nullptr);
+
+    // Chuyển đổi thời gian hiện tại sang dạng chuỗi
+    char buffer[100];
+    std::strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", std::localtime(&currentTime));
+    os <<buffer << std::endl;
+}
+
+void Resume(string filename)
+{
+        PlaySound(0, 0, 0);
+        int temp;
+        FixConsoleWindow();
+        ResumeGame(filename);
+        deleteAllBox();
+        GotoXY(10, 6);
+        cout << "Score: " << score;
+        DrawFullScoreGraphic(score);
+        thread t1(ThreadFunc); // Create thread for snake
+        HANDLE handle_t1 = t1.native_handle(); // Take handle of thread
+        while (1)
+        {
+            temp = toupper(getch());
+            if (STATE == 1)
+            {
+                if (temp == 'P') {
+                    PauseGame(handle_t1);
+                }
+                else if (temp == 'L')
+                {
+                    PauseGame(handle_t1);
+                    SaveData();
+                    ExitGame(handle_t1);
+
+                }
+                else if (temp == 'T') {
+                    PauseGame(handle_t1);
+                    LoadData();
+                    ResumeThread(handle_t1);
+                }
+                else if (temp == 'Q')
+                {
+                    ExitGame(handle_t1);
+                    return;
+                }
+                else {
+                    ResumeThread(handle_t1);
+                    if ((temp != CHAR_LOCK) && (temp == 'D' || temp == 'A' || temp == 'W' || temp == 'S')) {
+                        if (temp == 'D') CHAR_LOCK = 'A';
+                        else if (temp == 'W') CHAR_LOCK = 'S';
+                        else if (temp == 'S') CHAR_LOCK = 'W';
+                        else CHAR_LOCK = 'D';
+                        MOVING = temp;
+                    }
+                }
+            }
+            else {
+                if (temp == 'Y')
+                {
+                    deleteAllBox();
+                    StartGame();
+                }
+                else if (temp == 'N') {
+
+                    SuspendThread(handle_t1);
+                    mainMenu({ 7,4 }, 12, 20);
+                }
+            }
+        }
+}
+
+void ResumeGame(string filename)
+{
+    readBinaryFile(filename, snake, SIZE_SNAKE, food, FOOD_INDEX, MOVING, CHAR_LOCK,currentLevel);
+    score = SIZE_SNAKE - 6;
+    SPEED = OLDSPEED + score / 4;
+    POINT pBox{ 25,5 };
+    int wBox = 66, hBox = 18;
+    setColorText(243);
+    DrawFrame(pBox, wBox, hBox);
+    STATE = 1;//Start running Thread
 }
