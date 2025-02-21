@@ -3,6 +3,6 @@ D:\Download\Huntingsnake\hunting snack NMTri 4.33pm\hunting snack\menu.cpp(43,14
 D:\Download\Huntingsnake\hunting snack NMTri 4.33pm\hunting snack\menu.cpp(46,14): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
 D:\Download\Huntingsnake\hunting snack NMTri 4.33pm\hunting snack\menu.cpp(47,14): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
 D:\Download\Huntingsnake\hunting snack NMTri 4.33pm\hunting snack\menu.cpp(76,14): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-D:\Download\Huntingsnake\hunting snack NMTri 4.33pm\hunting snack\menu.cpp(363,21): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\Download\Huntingsnake\hunting snack NMTri 4.33pm\hunting snack\menu.cpp(524,22): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\Download\Huntingsnake\hunting snack NMTri 4.33pm\hunting snack\menu.cpp(362,21): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\Download\Huntingsnake\hunting snack NMTri 4.33pm\hunting snack\menu.cpp(523,22): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
   hunting snack.vcxproj -> D:\Download\Huntingsnake\hunting snack NMTri 4.33pm\x64\Debug\hunting snack.exe

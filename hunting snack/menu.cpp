@@ -349,8 +349,8 @@ void displayCredits() {
     vector <string> credits = {
         "A C++ game about a very hungry snake...",
         "",
-        "",
-		"Developed by:",
+		"This software was developed by:",
+		" ",
         "Nguyen Trung Kien",
         "Quan Phan Tien",
         "Nguyen Minh Tri",
