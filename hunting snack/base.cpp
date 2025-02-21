@@ -50,7 +50,7 @@ bool IsValid(int x, int y) {
             flag1= false;
         }
     }
-    return flag1 && (map[x-25][y-5] != 0);
+    return flag1 && (map[x-25][y-5] == 0);
     
 }
 
