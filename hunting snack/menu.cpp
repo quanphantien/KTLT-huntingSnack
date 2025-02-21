@@ -350,16 +350,13 @@ void displayCredits() {
         "A C++ game about a very hungry snake...",
         "",
         "",
-        "VNUHCM - University of Science",
-        "---------- Group 17 ----------",
-        "22120170 - Nguyen Trung Kien",
-        "22120369 - Quan Phan Tien",
-        "22120385 - Nguyen Minh Tri",
-        "22120392 - Nguyen Quoc Trong",
-        "22120437 - Le Dinh Hoang Vu",
-        "-----------------------------",
-        "Ky thuat lap trinh - 23CTT3",
-        "Giang vien: Truong Toan Thinh"
+		"Developed by:",
+        "Nguyen Trung Kien",
+        "Quan Phan Tien",
+        "Nguyen Minh Tri",
+        "Nguyen Quoc Trong",
+        "Le Dinh Hoang Vu",
+
     };
     for (int i = 0; i < credits.size(); i++) {
         GotoXY(xBox + (wBox - credits[i].length()) / 2, yBox + hBox / 2 - 6 + i);

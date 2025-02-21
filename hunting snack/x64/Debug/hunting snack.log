@@ -1,4 +1,8 @@
-﻿  base.cpp
-D:\Download\Huntingsnake\hunting snack NMTri 4.33pm\hunting snack\base.cpp(60,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-D:\Download\Huntingsnake\hunting snack NMTri 4.33pm\hunting snack\base.cpp(458,11): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+﻿  menu.cpp
+D:\Download\Huntingsnake\hunting snack NMTri 4.33pm\hunting snack\menu.cpp(43,14): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\Download\Huntingsnake\hunting snack NMTri 4.33pm\hunting snack\menu.cpp(46,14): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\Download\Huntingsnake\hunting snack NMTri 4.33pm\hunting snack\menu.cpp(47,14): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\Download\Huntingsnake\hunting snack NMTri 4.33pm\hunting snack\menu.cpp(76,14): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\Download\Huntingsnake\hunting snack NMTri 4.33pm\hunting snack\menu.cpp(363,21): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\Download\Huntingsnake\hunting snack NMTri 4.33pm\hunting snack\menu.cpp(524,22): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
   hunting snack.vcxproj -> D:\Download\Huntingsnake\hunting snack NMTri 4.33pm\x64\Debug\hunting snack.exe
